@@ -23,7 +23,10 @@ def search_papers(topic: str, max_results: int = 5) -> List[str]:
     """
     
     # Use arxiv to find the papers 
-    client = arxiv.Client()
+    client = arxiv.Client(
+        delay_seconds = 10.0,
+        num_retries = 5
+    )
 
     # Search for the most relevant articles matching the queried topic
     search = arxiv.Search(
@@ -190,4 +193,4 @@ Please present both detailed information about each paper and a high-level synth
 
 if __name__ == "__main__":
     # Initialize and run the server
-    mcp.run(transport='sse')
+    mcp.run(transport='stdio')
